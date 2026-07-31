@@ -45,5 +45,5 @@ An interactive Streamlit-based predictive modeling dashboard designed for course
 5. **Launch the Dashboard:**
    Run the Streamlit application:
    ```bash
-   streamlit run app.py
+   python -m streamlit run app.py
    ```
