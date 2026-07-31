@@ -29,162 +29,223 @@ st.set_page_config(
 # ─────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;900&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'Inter', sans-serif;
 }
 
+h1, h2, h3, .hero-header h1 {
+    font-family: 'Outfit', sans-serif;
+}
+
 /* Dark gradient background */
 .stApp {
-    background: linear-gradient(135deg, #0a0e1a 0%, #0f172a 40%, #1a1040 100%);
+    background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.15), transparent 50%),
+                linear-gradient(135deg, #060814 0%, #0b1120 60%, #150f38 100%);
     color: #e2e8f0;
 }
 
-/* Sidebar */
+/* Sidebar styling */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
-    border-right: 1px solid rgba(139, 92, 246, 0.2);
+    background: linear-gradient(180deg, #060913 0%, #0d122b 100%);
+    border-right: 1px solid rgba(139, 92, 246, 0.15);
+    box-shadow: 5px 0 25px rgba(0,0,0,0.5);
 }
 [data-testid="stSidebar"] * { color: #e2e8f0 !important; }
 
 /* Hero header */
 .hero-header {
-    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #0ea5e9 100%);
-    border-radius: 20px;
-    padding: 40px 48px;
-    margin-bottom: 32px;
-    box-shadow: 0 25px 60px rgba(124, 58, 237, 0.35);
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(79, 70, 229, 0.2) 50%, rgba(14, 165, 233, 0.15) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 24px;
+    padding: 45px 50px;
+    margin-bottom: 35px;
+    box-shadow: 0 20px 50px rgba(124, 58, 237, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: all 0.5s ease;
+}
+.hero-header:hover {
+    border-color: rgba(139, 92, 246, 0.55);
+    box-shadow: 0 25px 60px rgba(124, 58, 237, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .hero-header::before {
     content: '';
     position: absolute;
     top: -50%;
     right: -20%;
-    width: 400px;
-    height: 400px;
+    width: 450px;
+    height: 450px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.05);
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+    filter: blur(20px);
 }
 .hero-header h1 {
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: white !important;
-    margin: 0 0 8px 0;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #ffffff !important;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 50%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 .hero-header p {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.85) !important;
+    font-size: 1.15rem;
+    color: #94a3b8 !important;
     margin: 0;
+    font-weight: 400;
 }
 
 /* Metric cards */
 .metric-card {
-    background: linear-gradient(145deg, rgba(30,27,75,0.8), rgba(15,23,42,0.9));
-    border: 1px solid rgba(139, 92, 246, 0.25);
-    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(30,27,75,0.4), rgba(15,23,42,0.6));
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 20px;
     padding: 24px;
     text-align: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .metric-card:hover {
-    border-color: rgba(139, 92, 246, 0.6);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.25);
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(124, 58, 237, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 .metric-card .metric-value {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #ffffff 20%, #a78bfa 60%, #60a5fa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(124,58,237,0.3));
 }
 .metric-card .metric-label {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: #94a3b8;
-    margin-top: 4px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 .metric-card .metric-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
+    font-size: 2rem;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
 }
 
 /* Section headers */
 .section-header {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #e2e8f0;
-    border-left: 4px solid #7c3aed;
-    padding-left: 16px;
-    margin: 32px 0 20px 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+    color: #f8fafc;
+    border-left: 5px solid #8b5cf6;
+    padding-left: 18px;
+    margin: 35px 0 25px 0;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 /* Prediction result card */
 .pred-card {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(14, 165, 233, 0.15));
-    border: 1px solid rgba(124, 58, 237, 0.4);
-    border-radius: 20px;
-    padding: 32px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(14, 165, 233, 0.08));
+    border: 1px solid rgba(124, 58, 237, 0.35);
+    border-radius: 24px;
+    padding: 30px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    transition: all 0.4s ease;
+}
+.pred-card:hover {
+    border-color: rgba(124, 58, 237, 0.6);
+    box-shadow: 0 15px 45px rgba(124, 58, 237, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 .pred-card .pred-value {
-    font-size: 3.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #a78bfa, #38bdf8);
+    font-size: 3.6rem;
+    font-weight: 900;
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #ffffff 10%, #a78bfa 50%, #38bdf8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(124,58,237,0.4));
+    margin: 10px 0;
 }
 .pred-card .pred-label {
-    font-size: 1rem;
+    font-size: 0.88rem;
     color: #94a3b8;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
+}
+
+/* Recommendation & strategic verdict cards */
+.verdict-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 182, 212, 0.08));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+}
+.verdict-card.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.08));
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 /* Tab styling */
 .stTabs [data-baseweb="tab-list"] {
-    background: rgba(15, 23, 42, 0.6);
-    border-radius: 12px;
-    padding: 4px;
-    border: 1px solid rgba(139, 92, 246, 0.2);
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 16px;
+    padding: 6px;
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    gap: 8px;
 }
 .stTabs [data-baseweb="tab"] {
-    border-radius: 8px;
+    border-radius: 12px;
     color: #94a3b8 !important;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border: none !important;
+}
+.stTabs [data-baseweb="tab"]:hover {
+    color: #f1f5f9 !important;
+    background: rgba(255,255,255,0.03);
 }
 .stTabs [aria-selected="true"] {
     background: linear-gradient(135deg, #7c3aed, #4f46e5) !important;
-    color: white !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
 }
 
 /* Info box */
 .info-box {
-    background: rgba(14, 165, 233, 0.1);
-    border: 1px solid rgba(14, 165, 233, 0.3);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin: 12px 0;
+    background: rgba(14, 165, 233, 0.08);
+    border: 1px solid rgba(14, 165, 233, 0.25);
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin: 15px 0;
     color: #7dd3fc;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
+    backdrop-filter: blur(10px);
 }
 
 /* Table */
-.dataframe { font-size: 0.85rem !important; }
+.dataframe { font-size: 0.88rem !important; }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0f172a; }
-::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 3px; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #060913; }
+::-webkit-scrollbar-thumb { background: #6d28d9; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -238,12 +299,13 @@ def make_fig(fig, height=400):
         height=height,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family="Inter", color="#e2e8f0"),
-        margin=dict(l=20, r=20, t=40, b=20),
-        legend=dict(bgcolor="rgba(15,23,42,0.8)", bordercolor="rgba(139,92,246,0.3)", borderwidth=1),
+        font=dict(family="Inter", color="#cbd5e1"),
+        title=dict(font=dict(family="Outfit", size=16, color="#ffffff")),
+        margin=dict(l=20, r=20, t=50, b=20),
+        legend=dict(bgcolor="rgba(6,9,19,0.8)", bordercolor="rgba(139,92,246,0.2)", borderwidth=1),
     )
-    fig.update_xaxes(gridcolor="rgba(255,255,255,0.05)", zerolinecolor="rgba(255,255,255,0.1)")
-    fig.update_yaxes(gridcolor="rgba(255,255,255,0.05)", zerolinecolor="rgba(255,255,255,0.1)")
+    fig.update_xaxes(gridcolor="rgba(255,255,255,0.04)", zerolinecolor="rgba(255,255,255,0.08)")
+    fig.update_yaxes(gridcolor="rgba(255,255,255,0.04)", zerolinecolor="rgba(255,255,255,0.08)")
     return fig
 
 
@@ -552,9 +614,91 @@ with tab2:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
+        similar = df[df["CourseCategory"] == sel_category].copy()
+
+        # Strategic Verdict
+        st.markdown('<div class="section-header">EduPro Strategic Verdict</div>', unsafe_allow_html=True)
+        if len(similar) > 0:
+            avg_rev = similar["total_revenue"].mean()
+            avg_enroll = similar["enrollment_count"].mean()
+            
+            # Calculate performance ratios
+            rev_ratio = pred_revenue / avg_rev if avg_rev > 0 else 1.0
+            enroll_ratio = pred_enroll / avg_enroll if avg_enroll > 0 else 1.0
+            
+            col_v1, col_v2 = st.columns([2, 1])
+            
+            with col_v1:
+                if sel_type == "Free":
+                    st.markdown(f"""
+                    <div class="verdict-card warning">
+                        <h4 style="margin:0 0 10px 0; color:#f59e0b; font-family:'Outfit';">💡 Free Course Strategy Note</h4>
+                        <p style="margin:0; font-size:0.92rem; color:#cbd5e1; line-height:1.6;">
+                            This course is configured as <strong>Free</strong>. While this guarantees stable enrollment demand (forecasted at <strong>{int(pred_enroll)}</strong> students), it will not generate direct revenue. Use this course as a top-of-funnel lead generator to upsell paid tracks.
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                elif rev_ratio >= 1.15:
+                    st.markdown(f"""
+                    <div class="verdict-card">
+                        <h4 style="margin:0 0 10px 0; color:#10b981; font-family:'Outfit';">🚀 Premium Revenue Forecast (High ROI)</h4>
+                        <p style="margin:0; font-size:0.92rem; color:#cbd5e1; line-height:1.6;">
+                            The simulated configuration is highly optimal! Expected revenue is <strong>{rev_ratio*100 - 100:.1f}% higher</strong> than the {sel_category} average (${avg_rev:,.0f}). The high instructor rating ({sel_teacher_rating:.1f}) and well-targeted price point (${sel_price:.0f}) are working together to maximize return. This course is approved for fast-track development.
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                elif rev_ratio <= 0.85:
+                    st.markdown(f"""
+                    <div class="verdict-card warning">
+                        <h4 style="margin:0 0 10px 0; color:#ef4444; font-family:'Outfit';">⚠️ Revenue Performance Warning (Sub-optimal)</h4>
+                        <p style="margin:0; font-size:0.92rem; color:#cbd5e1; line-height:1.6;">
+                            Expected revenue is <strong>{100 - rev_ratio*100:.1f}% below</strong> the category average. Consider increasing the instructor experience requirement (currently {sel_exp} years) or adjusting the price point (currently ${sel_price:.0f}) closer to the category optimal range of $200–$300 to improve demand signals.
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.markdown(f"""
+                    <div class="verdict-card">
+                        <h4 style="margin:0 0 10px 0; color:#3b82f6; font-family:'Outfit';">⚖️ Balanced Revenue Forecast (Moderate ROI)</h4>
+                        <p style="margin:0; font-size:0.92rem; color:#cbd5e1; line-height:1.6;">
+                            Expected revenue is aligned with the category average. This represents a stable, low-risk addition to the course catalog. To push this course into high-yield territory, try pairing it with a teacher with higher rating/experience or bundle it with additional resources to justify a premium tier.
+                        </p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    
+            with col_v2:
+                # Beautiful indicator gauge for monetization tier
+                score_val = min(100, max(0, int(rev_ratio * 50))) if sel_type == "Paid" else 0
+                fig_g = go.Figure(go.Indicator(
+                    mode = "gauge+number",
+                    value = score_val,
+                    domain = {'x': [0, 1], 'y': [0, 1]},
+                    title = {'text': "Monetization Score", 'font': {'size': 14, 'family': 'Outfit', 'color': '#cbd5e1'}},
+                    gauge = {
+                        'axis': {'range': [None, 100], 'tickwidth': 1, 'tickcolor': "#94a3b8"},
+                        'bar': {'color': PURPLE},
+                        'bgcolor': "rgba(0,0,0,0)",
+                        'borderwidth': 1,
+                        'bordercolor': "rgba(255,255,255,0.1)",
+                        'steps': [
+                            {'range': [0, 45], 'color': 'rgba(239, 68, 68, 0.15)'},
+                            {'range': [45, 80], 'color': 'rgba(245, 158, 11, 0.15)'},
+                            {'range': [80, 100], 'color': 'rgba(16, 185, 129, 0.15)'}
+                        ],
+                    }
+                ))
+                fig_g.update_layout(
+                    height=180,
+                    margin=dict(l=15, r=15, t=30, b=15),
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    font=dict(family="Inter", color="#e2e8f0")
+                )
+                st.plotly_chart(fig_g, use_container_width=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
         # Compare against similar courses
         st.markdown('<div class="section-header">How It Compares to Similar Courses</div>', unsafe_allow_html=True)
-        similar = df[df["CourseCategory"] == sel_category].copy()
 
         if len(similar) > 0:
             c1, c2 = st.columns(2)
