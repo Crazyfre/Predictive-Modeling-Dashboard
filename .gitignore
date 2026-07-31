@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv
+venv/
+ENV/
+env/
+
+# IDEs
+.idea/
+.vscode/
+.gemini/
+
+# Data
+Data/
+
+# Markdown documents (ignore all except README.md)
+*.md
+!README.md
